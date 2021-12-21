@@ -1,4 +1,9 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+echo "starting..."
+while true; do sleep 30; done;
+
+##!/usr/bin/env bash
 
 if [[ -n "$SOUND_DISABLE_SPOTIFY" ]]; then
   echo "Spotify is disabled, exiting..."

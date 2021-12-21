@@ -1,13 +1,25 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-debian:buster
+ARG BALENA_ARCH=%%BALENA_ARCH%%
+ARG SPOTIFYD_VERSION=0.3.3
 
-RUN curl -sSL https://dtcooper.github.io/raspotify/key.asc | apt-key add -v - 2> /dev/null \
-  && echo 'deb https://dtcooper.github.io/raspotify jessie main' | tee /etc/apt/sources.list.d/raspotify.list \
-  && install_packages raspotify
+FROM balenalib/%%BALENA_ARCH%%-debian:buster-run as builder
+WORKDIR /usr/src
 
-# Audio block setup
-ENV PULSE_SERVER=tcp:localhost:4317
-RUN curl -sL https://raw.githubusercontent.com/balenablocks/audio/master/scripts/alsa-bridge/debian-setup.sh | sh
+RUN install_packages wget
 
-COPY start.sh /usr/src/
+COPY dl-spotifyd.sh /usr/src/
 
-CMD [ "/bin/bash", "/usr/src/start.sh" ]
+RUN chmod u+x /usr/src/dl-spotifyd.sh && \
+    /usr/src/dl-spotifyd.sh ${BALENA_ARCH} ${SPOTIFYD_VERSION} && \
+    tar -zvxf spotifyd.tar.gz
+
+CMD "balena-idle"
+
+# FROM balenalib/%%BALENA_ARCH%%-debian:buster-run as run
+# WORKDIR /usr/src
+
+# RUN install_packages libasound2-dev
+
+# COPY --from=builder /usr/src/spotifyd /usr/src/
+# COPY start.sh /usr/src/
+
+# CMD [ "/bin/bash", "/usr/src/start.sh" ]
