@@ -1,25 +1,7 @@
-ARG BALENA_ARCH=%%BALENA_ARCH%%
-ARG SPOTIFYD_VERSION=0.3.3
+FROM tmigone/librespot:0.3.1
 
-FROM balenalib/%%BALENA_ARCH%%-debian:buster-run as builder
-WORKDIR /usr/src
+ENV PULSE_SERVER=tcp:localhost:4317
 
-RUN install_packages wget
+COPY start.sh /usr/src/
 
-COPY dl-spotifyd.sh /usr/src/
-
-RUN chmod u+x /usr/src/dl-spotifyd.sh && \
-    /usr/src/dl-spotifyd.sh ${BALENA_ARCH} ${SPOTIFYD_VERSION} && \
-    tar -zvxf spotifyd.tar.gz
-
-CMD "balena-idle"
-
-# FROM balenalib/%%BALENA_ARCH%%-debian:buster-run as run
-# WORKDIR /usr/src
-
-# RUN install_packages libasound2-dev
-
-# COPY --from=builder /usr/src/spotifyd /usr/src/
-# COPY start.sh /usr/src/
-
-# CMD [ "/bin/bash", "/usr/src/start.sh" ]
+CMD [ "/bin/bash", "/usr/src/start.sh" ]

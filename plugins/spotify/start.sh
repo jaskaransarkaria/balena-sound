@@ -1,10 +1,5 @@
 #!/bin/bash
 
-echo "starting..."
-while true; do sleep 30; done;
-
-##!/usr/bin/env bash
-
 if [[ -n "$SOUND_DISABLE_SPOTIFY" ]]; then
   echo "Spotify is disabled, exiting..."
   exit 0
@@ -45,6 +40,7 @@ echo "Device name: $SOUND_DEVICE_NAME"
 [[ -z "$SOUND_SPOTIFY_ENABLE_CACHE" ]] && echo "Spotify audio cache disabled."
 
 set -- /usr/bin/librespot \
+  --backend pulseaudio \
   --name "$SOUND_DEVICE_NAME" \
   --bitrate "$SOUND_SPOTIFY_BITRATE" \
   --cache /var/cache/raspotify \
