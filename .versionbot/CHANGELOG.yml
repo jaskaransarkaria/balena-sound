@@ -1,4 +1,44 @@
 - commits:
+    - subject: 'spotify: replace base image'
+      hash: f52d2adfd5bbb1fe9b284a24b69045e04ec28764
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Tomás Migone <tomas@balena.io>
+        signed-off-by: Tomás Migone <tomas@balena.io>
+      author: Tomás Migone
+      nested: []
+    - subject: 'sound-supervisor: use node base image for production stage'
+      hash: aae0d82584b87db9d277d1e1627eadcf9205ca0b
+      body: |
+        - Reduce image size by ~75MB (225MB down to 150MB)
+      footer:
+        Closes: '#520'
+        closes: '#520'
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Tomás Migone <tomas@balena.io>
+        signed-off-by: Tomás Migone <tomas@balena.io>
+      author: Tomás Migone
+      nested: []
+    - subject: 'airplay: use shairport-sync base image'
+      hash: 7d1c87021689ff89d30d0a6b4f3bea0b59c5a2df
+      body: |
+        - Allows easier control of shairport-sync version
+        - Reduces image size ~200MB (240MB down to 40MB)
+      footer:
+        Closes: '#519'
+        closes: '#519'
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Tomás Migone <tomas@balena.io>
+        signed-off-by: Tomás Migone <tomas@balena.io>
+      author: Tomás Migone
+      nested: []
+  version: 3.6.15
+  date: 2021-12-23T18:38:35.955Z
+- commits:
     - subject: 'landr: rebuild landr page'
       hash: b5e7ecad33930278bf399ad400da7abcfc4b9830
       body: ''
